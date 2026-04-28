@@ -1,5 +1,50 @@
-:host {
+// ── Page ─────────────────────────────────────────────────────────
+.movies-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(201, 168, 76, 0.06) 0%, transparent 55%),
+    #080810;
+  padding: 3rem 2rem 4rem;
+}
+
+// ── Header ───────────────────────────────────────────────────────
+.movies-header {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 1.25rem;
+
+  &__title {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #f0ece0;
+  }
+
+  &__count {
+    margin: 0;
+    font-size: 0.85rem;
+    color: rgba(201, 168, 76, 0.7);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+}
+
+// ── Grid ─────────────────────────────────────────────────────────
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.75rem;
+  justify-items: center;
+
+  &__empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 1rem;
+    padding: 4rem 0;
+  }
 }

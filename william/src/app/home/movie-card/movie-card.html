@@ -1,10 +1,26 @@
-<div class="card shadow m-4" style="width: 18rem; min-height: 55rem">
-  @if(movie.image) {
-    <img [src]="'http://localhost:8080/movies/' + movie.id + '/image'" class="card-img-top" alt="">
-  }
-  <div class="card-body">
-    <h5 class="card-title">{{movie.title}}</h5>
-    <p class="card-text">{{movie.synopsis}}</p>
-    <label class="note">Note: {{movie.rate}}</label>
+<article class="movie-card" [class.has-image]="movie.image" role="article" [attr.aria-label]="movie.title">
+  <div class="movie-card__poster">
+    @if (movie.image) {
+      <img
+        [src]="'http://localhost:8080/movies/' + movie.id + '/image'"
+        [alt]="movie.title + ' poster'"
+        class="movie-card__img"
+      />
+    } @else {
+      <div class="movie-card__no-poster" aria-hidden="true">
+        <span class="movie-card__no-poster-icon">🎬</span>
+      </div>
+    }
+    <div class="movie-card__overlay" aria-hidden="true"></div>
+    <div class="movie-card__rating" [attr.aria-label]="'Note: ' + movie.rate + ' sur 10'">
+      <span class="movie-card__rating-star">★</span>
+      <span class="movie-card__rating-value">{{ movie.rate }}</span>
+    </div>
   </div>
-</div>
+
+  <div class="movie-card__body">
+    <h2 class="movie-card__title">{{ movie.title }}</h2>
+    <div class="movie-card__divider" aria-hidden="true"></div>
+    <p class="movie-card__synopsis">{{ movie.synopsis }}</p>
+  </div>
+</article>

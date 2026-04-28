@@ -1,5 +1,14 @@
-@for (movie of movies(); track movie.id) {
-  <app-movie-card [movie]="movie"></app-movie-card>
-}
+<main class="movies-page">
+  <header class="movies-header">
+    <h1 class="movies-header__title">Catalogue</h1>
+    <p class="movies-header__count">{{ movies().length }} films</p>
+  </header>
 
-
+  <section class="movies-grid" aria-label="Liste des films">
+    @for (movie of movies(); track movie.id) {
+      <app-movie-card [movie]="movie" />
+    } @empty {
+      <p class="movies-grid__empty">Aucun film disponible.</p>
+    }
+  </section>
+</main>
