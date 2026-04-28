@@ -1,0 +1,124 @@
+.register-page {
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 20% 0%, rgba(184, 146, 42, 0.07) 0%, transparent 55%),
+  #f4f1ea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+
+  &__title {
+    margin: 0 0 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #1a1a2e;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 2px;
+      background: linear-gradient(90deg, #b8922a, transparent);
+      margin-top: 0.45rem;
+      border-radius: 2px;
+    }
+  }
+
+  &__subtitle {
+    margin: 0 0 2rem;
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    input {
+      padding: 0.65rem 0.9rem;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background: #fafaf8;
+      color: #1a1a2e;
+      transition: border-color 0.2s;
+      outline: none;
+
+      &:focus {
+        border-color: #b8922a;
+        background: white;
+      }
+    }
+  }
+
+  &__submit {
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #b8922a, #d4a93a);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover:not(:disabled) {
+      opacity: 0.9;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  &__divider {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  &__secondary {
+    margin-top: 0.6rem;
+    width: 100%;
+    padding: 0.65rem;
+    background: transparent;
+    border: 1px solid rgba(184, 146, 42, 0.4);
+    border-radius: 8px;
+    color: #b8922a;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: rgba(184, 146, 42, 0.06);
+    }
+  }
+}

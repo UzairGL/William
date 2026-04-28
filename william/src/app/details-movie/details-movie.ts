@@ -6,6 +6,7 @@ import {Movie} from '../models/movie';
 import {Review} from '../models/review';
 import {FormsModule} from '@angular/forms';
 import {DatePipe} from '@angular/common';
+import { UserService } from '../services/user-service';
 
 @Component({
   selector: 'app-details-movie',
@@ -17,12 +18,12 @@ export class DetailsMovie implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly moviesApi = inject(MoviesApiService);
   private readonly reviewApi = inject(ReviewApi);
+  private readonly userService: UserService = inject(UserService);
 
   readonly movieId = Number(this.route.snapshot.paramMap.get('id'));
 
   movie = signal<Movie | null>(null);
   reviews = signal<Review[]>([]);
-  userId = signal<number | null>(null);
   rate = signal<number>(5);
   text = signal('');
   reviewExists = signal(false);
@@ -32,17 +33,19 @@ export class DetailsMovie implements OnInit {
       return;
     }
 
-    this.moviesApi.getMovie(String(this.movieId)).subscribe(movie => {
+    this.moviesApi.getMovie(String(this.movieId)).subscribe((movie) => {
       this.movie.set(movie);
     });
 
-    this.reviewApi.getReviewsByMovie(this.movieId).subscribe(reviews => {
+    this.reviewApi.getReviewsByMovie(this.movieId).subscribe((reviews) => {
       this.reviews.set(reviews);
     });
   }
 
   loadReviews(): void {
-    this.reviewApi.getReviewsByMovie(this.movieId).subscribe(reviews => this.reviews.set(reviews));
+    this.reviewApi
+      .getReviewsByMovie(this.movieId)
+      .subscribe((reviews) => this.reviews.set(reviews));
   }
 
   formatRate(rate: number | undefined | null): string {
@@ -57,20 +60,21 @@ export class DetailsMovie implements OnInit {
     event.preventDefault();
 
     const movie = this.movie();
-    const userId = this.userId();
+    const user = this.userService.getUserfromLS();
 
-    if (!movie || !movie.id || userId === null) {
+    if (!movie || !movie.id || user === undefined) {
       return;
     }
 
     const review: Review = {
       movie,
       user: {
-        id: userId,
+        id: user.id,
         firstName: '',
         lastName: '',
         age: 0,
         email: '',
+        points: 0,
       },
       rate: this.rate(),
       text: this.text(),

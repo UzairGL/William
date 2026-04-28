@@ -1,0 +1,20 @@
+<div class="login-page">
+  <div class="login-card">
+    <h1 class="login-card__title">Déjà un compte ? Connecte toi !</h1>
+    <p class="login-card__subtitle">Et rejoins une vraie communauté</p>
+
+    <form class="login-card__form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="login-card__field">
+        <label for="email">Email</label>
+        <input id="email" type="text" formControlName="email"/>
+      </div>
+
+      <button class="login-card__submit" type="submit" [disabled]="!loginForm.valid">
+        Se connecter
+      </button>
+    </form>
+
+    <div class="login-card__divider">Pas encore de compte ?</div>
+    <button class="login-card__secondary" (click)="showRegisterPage()">S'inscrire</button>
+  </div>
+</div>

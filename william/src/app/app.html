@@ -1,4 +1,6 @@
-<app-navbar [title]="title()"></app-navbar>
+@if (showNavbar()) {
+  <app-navbar [title]="title()"></app-navbar>
+}
 <app-toasters/>
 <main class="flex-grow-1">
   <router-outlet></router-outlet>

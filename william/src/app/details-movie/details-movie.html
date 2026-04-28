@@ -34,21 +34,7 @@
             <h2 class="h4 mb-3">Ajouter un avis</h2>
 
             <form class="review-form" (submit)="submitReview($event)">
-              <div class="row g-3">
-                <div class="col-md-4">
-                  <label class="form-label">User ID</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    [ngModel]="userId()"
-                    (ngModelChange)="userId.set($event ? +$event : null)"
-                    name="userId"
-                    min="1"
-                    placeholder="1"
-                    required
-                  />
-                </div>
-
+              <div class="row g-2">
                 <div class="col-md-4">
                   <label class="form-label">Note</label>
                   <input
