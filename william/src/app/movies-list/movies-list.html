@@ -1,53 +1,80 @@
-<h1>Liste des films</h1>
+<main class="movies-list-page">
+  <header class="page-header">
+    <div class="page-header__text">
+      <h1 class="page-header__title">Liste des films</h1>
+      <p class="page-header__subtitle">Administration du catalogue</p>
+    </div>
+    <button [routerLink]="['/add-movie']" class="btn-add" type="button" aria-label="Ajouter un nouveau film">
+      <span class="btn-add__icon" aria-hidden="true">＋</span>
+      <span>Nouveau film</span>
+    </button>
+  </header>
 
-<button [routerLink]="['/add-movie']" class="btn btn-primary btn-new-movie">
-  <i class="bi bi-plus-lg"></i> Nouveau film
-</button>
-
-<div class="movie-table-wrapper">
-  <table class="table table-striped table-hover">
-    <thead>
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Titre</th>
-      <th scope="col">Date</th>
-      <th scope="col">Réalisateur</th>
-      <th scope="col">Note</th>
-      <th scope="col">Synopsis</th>
-      <th scope="col">Supprimer</th>
-      <th scope="col">Update</th>
-    </tr>
-    </thead>
-    <tbody>
-      @for (movie of movies(); track movie.id) {
+  <div class="table-shell">
+    <div class="table-scroll" role="region" aria-label="Tableau des films" tabindex="0">
+      <table class="movies-table">
+        <caption class="visually-hidden">Liste des films avec options de gestion</caption>
+        <thead class="movies-table__head">
         <tr>
-          <td>{{ movie.id }}</td>
-          <td>{{ movie.title }}</td>
-          <td>{{ movie.releaseDate | date:'dd/MM/yyyy' }}</td>
-          <td>{{ movie.director }}</td>
-          <td><span class="rate-badge">⭐ {{ movie.rate }}</span></td>
-          <td class="synopsis-cell" [title]="movie.synopsis">{{ movie.synopsis }}</td>
-          <td class="action-cell">
-            <button
-              type="button"
-              class="btn btn-danger btn-delete"
-              (click)="deleteMovie(movie.id)"
-              [attr.aria-label]="'Supprimer ' + movie.title"
-            >
-              <i class="bi bi-trash"></i>
-            </button>
-          </td>
-          <td class="action-cell">
-            <button
-              type="button"
-              class="btn btn-outline-primary"
-              [routerLink]="['/update-movie', movie.id]"
-            >
-              <i class="bi bi-pen"></i>
-            </button>
-          </td>
+          <th scope="col" class="col-id">#</th>
+          <th scope="col" class="col-title">Titre</th>
+          <th scope="col" class="col-date">Date</th>
+          <th scope="col" class="col-director">Réalisateur</th>
+          <th scope="col" class="col-rate">Note</th>
+          <th scope="col" class="col-synopsis">Synopsis</th>
+          <th scope="col" class="col-action">Actions</th>
         </tr>
-      }
-    </tbody>
-  </table>
-</div>
+        </thead>
+        <tbody class="movies-table__body">
+          @for (movie of movies(); track movie.id) {
+            <tr class="movies-table__row">
+              <td class="col-id">
+                <span class="id-chip">{{ movie.id }}</span>
+              </td>
+              <td class="col-title">
+                <span class="movie-title">{{ movie.title }}</span>
+              </td>
+              <td class="col-date">
+                <span class="date-value">{{ movie.releaseDate | date:'dd/MM/yyyy' }}</span>
+              </td>
+              <td class="col-director">{{ movie.director }}</td>
+              <td class="col-rate">
+                <span class="rate-badge" [attr.aria-label]="'Note: ' + movie.rate + ' sur 10'">
+                  <span aria-hidden="true">★</span>{{ movie.rate }}
+                </span>
+              </td>
+              <td class="col-synopsis" [title]="movie.synopsis">{{ movie.synopsis }}</td>
+              <td class="col-action">
+                <div class="action-group" role="group" [attr.aria-label]="'Actions pour ' + movie.title">
+                  <button
+                    type="button"
+                    class="action-btn action-btn--edit"
+                    [routerLink]="['/update-movie', movie.id]"
+                    [attr.aria-label]="'Modifier ' + movie.title"
+                  >
+                    <i class="bi bi-pen" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="action-btn action-btn--delete"
+                    (click)="deleteMovie(movie.id)"
+                    [attr.aria-label]="'Supprimer ' + movie.title"
+                  >
+                    <i class="bi bi-trash" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="7" class="empty-state">
+                <span aria-hidden="true">🎬</span>
+                <p>Aucun film dans le catalogue.</p>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>

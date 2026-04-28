@@ -1,19 +1,16 @@
-// ── Page ─────────────────────────────────────────────────────────
 .movies-page {
   min-height: 100vh;
-  background:
-    radial-gradient(ellipse at 20% 0%, rgba(201, 168, 76, 0.06) 0%, transparent 55%),
-    #080810;
+  background: radial-gradient(ellipse at 20% 0%, rgba(184, 146, 42, 0.07) 0%, transparent 55%),
+  #f4f1ea;
   padding: 3rem 2rem 4rem;
 }
 
-// ── Header ───────────────────────────────────────────────────────
 .movies-header {
   display: flex;
   align-items: baseline;
   gap: 1rem;
   margin-bottom: 2.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   padding-bottom: 1.25rem;
 
   &__title {
@@ -21,19 +18,29 @@
     font-size: 1.75rem;
     font-weight: 800;
     letter-spacing: -0.02em;
-    color: #f0ece0;
+    color: #1a1a2e;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 2px;
+      background: linear-gradient(90deg, #b8922a, transparent);
+      margin-top: 0.45rem;
+      border-radius: 2px;
+    }
   }
 
   &__count {
     margin: 0;
-    font-size: 0.85rem;
-    color: rgba(201, 168, 76, 0.7);
-    letter-spacing: 0.05em;
+    font-size: 0.8rem;
+    color: rgba(184, 146, 42, 0.8);
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 }
 
-// ── Grid ─────────────────────────────────────────────────────────
+
 .movies-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -43,7 +50,7 @@
   &__empty {
     grid-column: 1 / -1;
     text-align: center;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(0, 0, 0, 0.3);
     font-size: 1rem;
     padding: 4rem 0;
   }
