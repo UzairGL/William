@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {MoviesApiService} from '../services/movies-api.service';
 import {ReviewApi} from '../services/review-api.service';
@@ -13,6 +13,7 @@ import { UserService } from '../services/user-service';
   imports: [FormsModule, DatePipe],
   templateUrl: './details-movie.html',
   styleUrl: './details-movie.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailsMovie implements OnInit {
   private readonly route = inject(ActivatedRoute);
@@ -26,7 +27,6 @@ export class DetailsMovie implements OnInit {
   reviews = signal<Review[]>([]);
   rate = signal<number>(5);
   text = signal('');
-  reviewExists = signal(false);
 
   ngOnInit(): void {
     if (!this.movieId) {
