@@ -1,3 +1,10 @@
-@for (review of reviews(); track review.id) {
-  <app-review-card [review]="review" />
-}
+<div class="reviews-grid">
+  @for (review of reviews(); track review.id) {
+    <app-review-card [review]="review" />
+  } @empty {
+    <div class="empty-state">
+      <span><i class="bi bi-chat-left-dots"></i></span>
+      <p>Aucun avis n'a été publié pour le moment.</p>
+    </div>
+  }
+</div>

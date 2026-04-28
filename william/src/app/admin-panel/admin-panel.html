@@ -1,11 +1,18 @@
-<router-outlet />
-<div>
-  <a class="nav-link px-3 mx-1 rounded-pill"
-     routerLink="/admin/users">
-    Users
-  </a>
-  <a class="nav-link px-3 mx-1 rounded-pill"
-     routerLink="/admin/reviews">
-    Reviews
-  </a>
+<div class="admin-nav-container">
+  <nav class="admin-tabs">
+    <a class="admin-tabs__link"
+       routerLink="users"
+       routerLinkActive="is-active">
+      <i class="bi bi-people-fill me-2"></i>Utilisateurs
+    </a>
+    <a class="admin-tabs__link"
+       routerLink="reviews"
+       routerLinkActive="is-active">
+      <i class="bi bi-chat-square-text-fill me-2"></i>Avis
+    </a>
+  </nav>
+</div>
+
+<div class="table-shell">
+  <router-outlet />
 </div>

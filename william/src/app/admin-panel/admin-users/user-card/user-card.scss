@@ -1,0 +1,147 @@
+$bg-page: #f4f1ea;
+$bg-shell: #ffffff;
+$bg-head: #1c1c26;
+$bg-row: #ffffff;
+$bg-row-alt: #faf9f6;
+$bg-row-hover: #fdf6e3;
+$border-subtle: #e5e0d5;
+$gold: #b8922a;
+$gold-light: #d4a83a;
+$gold-dim: rgba(184, 146, 42, 0.12);
+$text-primary: #1a1a2e;
+$text-secondary: #444050;
+$text-muted: #8a8690;
+$red: #c0392b;
+$red-glow: rgba(192, 57, 43, 0.2);
+$radius-shell: 14px;
+$radius-btn: 8px;
+$transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+.users-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.user-card {
+  background: $bg-shell;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-shell;
+  padding: 1.5rem;
+  position: relative;
+  transition: all $transition;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-color: rgba($gold, 0.3);
+  }
+
+  &__main {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &__stats {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: $bg-page;
+    border-radius: $radius-btn;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  background: $bg-head;
+  color: $gold;
+  border: 2px solid $gold;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.user-name {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+.user-email {
+  margin: 0;
+  font-size: 0.8rem;
+  color: $text-muted;
+}
+
+.points-badge {
+  margin-left: auto;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.points-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: $gold;
+  font-weight: 700;
+}
+
+.points-value {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: $text-primary;
+}
+
+.stat-item {
+  text-align: center;
+  .stat-label {
+    display: block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: $text-muted;
+  }
+  .stat-value {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: $text-secondary;
+  }
+}
+
+.stat-divider {
+  width: 1px;
+  height: 25px;
+  background: $border-subtle;
+}
+
+// Récupération de tes styles de boutons d'action existants
+.action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: all $transition;
+
+  &--edit { color: $gold; border-color: rgba($gold, 0.2); &:hover { background: $gold-dim; } }
+  &--delete { color: $red; border-color: rgba($red, 0.2); &:hover { background: $red-glow; } }
+}

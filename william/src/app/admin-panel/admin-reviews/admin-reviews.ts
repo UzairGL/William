@@ -5,7 +5,7 @@ import { ReviewCard } from './review-card/review-card';
 
 @Component({
   selector: 'app-admin-reviews',
-  imports: [UserCard, ReviewCard],
+  imports: [ReviewCard],
   templateUrl: './admin-reviews.html',
   styleUrl: './admin-reviews.scss',
 })

@@ -1,6 +1,25 @@
-<p>{{ review.id }}</p>
-<p>{{ review.movie.title }}</p>
-<p>{{ review.reviewDate | date:'dd/MM/yyyy' }}</p>
-<p>{{ review.user.firstName }} {{ review.user.lastName }}</p>
-<p>{{ review.text }}</p>
+<div class="review-card">
+  <div class="review-card__header">
+    <div class="user-info">
+      <div class="user-avatar">
+        {{ review.user.firstName[0] }}{{ review.user.lastName[0] }}
+      </div>
+      <div>
+        <h4 class="user-name">{{ review.user.firstName }} {{ review.user.lastName }}</h4>
+        <p class="review-movie">sur <span class="gold-text">{{ review.movie.title }}</span></p>
+      </div>
+    </div>
+    <div class="rate-badge">
+      <i class="bi bi-star-fill me-1"></i> {{ review.rate }}/5
+    </div>
+  </div>
 
+  <div class="review-card__body">
+    <p class="review-text">" {{ review.text }} "</p>
+  </div>
+
+  <div class="review-card__footer">
+    <span class="date-value"><i class="bi bi-calendar3 me-1"></i> {{ review.reviewDate | date:'dd/MM/yyyy' }}</span>
+    <span class="id-chip">#{{ review.id }}</span>
+  </div>
+</div>

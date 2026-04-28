@@ -1,0 +1,117 @@
+$bg-page: #f4f1ea;
+$bg-shell: #ffffff;
+$bg-head: #1c1c26;
+$bg-row: #ffffff;
+$bg-row-alt: #faf9f6;
+$bg-row-hover: #fdf6e3;
+$border-subtle: #e5e0d5;
+$gold: #b8922a;
+$gold-light: #d4a83a;
+$gold-dim: rgba(184, 146, 42, 0.12);
+$text-primary: #1a1a2e;
+$text-secondary: #444050;
+$text-muted: #8a8690;
+$red: #c0392b;
+$red-glow: rgba(192, 57, 43, 0.2);
+$radius-shell: 14px;
+$radius-btn: 8px;
+$transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.review-card {
+  background: $bg-shell;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-shell;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all $transition;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: rgba($gold, 0.3);
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  &__body {
+    flex-grow: 1;
+    font-style: italic;
+    color: $text-secondary;
+    line-height: 1.6;
+    border-left: 3px solid $gold-dim;
+    padding-left: 1rem;
+    margin: 0.5rem 0;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px dashed $border-subtle;
+    font-size: 0.8rem;
+    color: $text-muted;
+  }
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background: $bg-head;
+  color: $gold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  border: 1px solid $gold;
+}
+
+.user-name {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+.review-movie {
+  margin: 0;
+  font-size: 0.75rem;
+  color: $text-muted;
+}
+
+.gold-text {
+  color: $gold;
+  font-weight: 600;
+}
+
+.rate-badge {
+  background: $bg-head;
+  color: $gold;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  border: 1px solid rgba($gold, 0.4);
+}

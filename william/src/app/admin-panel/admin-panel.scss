@@ -1,0 +1,72 @@
+@use 'sass:color';
+
+// --- VARIABLES ---
+$bg-page: #f4f1ea;
+$bg-shell: #ffffff;
+$bg-head: #1c1c26;
+$bg-row: #ffffff;
+$bg-row-alt: #faf9f6;
+$bg-row-hover: #fdf6e3;
+$border-subtle: #e5e0d5;
+$gold: #b8922a;
+$gold-light: #d4a83a;
+$gold-dim: rgba(184, 146, 42, 0.12);
+$text-primary: #1a1a2e;
+$text-secondary: #444050;
+$text-muted: #8a8690;
+$red: #c0392b;
+$red-glow: rgba(192, 57, 43, 0.2);
+$radius-shell: 14px;
+$radius-btn: 8px;
+$transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+.admin-nav-container {
+  display: flex;
+  background: $bg-shell;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-btn + 4px;
+  padding: 0.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    // ON FORCE LA SUPPRESSION DU STYLE "LIEN BLEU"
+    text-decoration: none !important;
+    color: $text-secondary !important;
+
+    border-radius: $radius-btn;
+    transition: all $transition;
+    white-space: nowrap;
+
+    i {
+      font-size: 1.1rem;
+      color: inherit;
+    }
+
+    &:hover:not(.is-active) {
+      background: $gold-dim !important;
+      color: $gold !important;
+    }
+
+    &.is-active {
+      background: $bg-head !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+      i {
+        color: $gold !important;
+      }
+    }
+  }
+}

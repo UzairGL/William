@@ -1,3 +1,10 @@
-@for (user of users(); track user.id) {
-  <app-user-card [user]="user" />
-}
+<div class="users-grid">
+  @for (user of users(); track user.id) {
+    <app-user-card [user]="user" />
+  } @empty {
+    <div class="empty-state">
+      <span><i class="bi bi-person-x"></i></span>
+      <p>Aucun utilisateur trouvé.</p>
+    </div>
+  }
+</div>

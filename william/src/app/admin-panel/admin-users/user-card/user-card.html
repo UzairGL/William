@@ -1,3 +1,29 @@
-<p>{{user.id}}</p>
-<p>{{user.age}}</p>
-<p>{{user.email}}</p>
+<div class="user-card">
+  <div class="user-card__main">
+    <div class="user-avatar">
+      {{ user.firstName[0] }}{{ user.lastName[0] }}
+    </div>
+
+    <div class="user-details">
+      <h4 class="user-name">{{ user.firstName }} {{ user.lastName }}</h4>
+      <p class="user-email">{{ user.email }}</p>
+    </div>
+
+    <div class="points-badge">
+      <span class="points-label">Points</span>
+      <span class="points-value">{{ user.points }}</span>
+    </div>
+  </div>
+
+  <div class="user-card__stats">
+    <div class="stat-item">
+      <span class="stat-label">Âge</span>
+      <span class="stat-value">{{ user.age }} ans</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-label">ID Membre</span>
+      <span class="stat-value">#{{ user.id }}</span>
+    </div>
+  </div>
+</div>

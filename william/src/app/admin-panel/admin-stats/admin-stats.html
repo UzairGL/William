@@ -1,3 +1,37 @@
-<p>Nombre de films {{this.movies().length}}</p>
-<p>Nombre d'utilisateurs {{this.users().length}}</p>
-<p>Nombre d'avis {{this.reviews().length}}</p>
+<div class="row g-4 mb-5">
+  <div class="col-md-4">
+    <div class="metric-card">
+      <div class="metric-card__icon">
+        <i class="bi bi-film"></i>
+      </div>
+      <div class="metric-card__content">
+        <span class="metric-card__label">Films répertoriés</span>
+        <h2 class="metric-card__value">{{ movies().length }}</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="metric-card">
+      <div class="metric-card__icon">
+        <i class="bi bi-people"></i>
+      </div>
+      <div class="metric-card__content">
+        <span class="metric-card__label">Utilisateurs actifs</span>
+        <h2 class="metric-card__value">{{ users().length }}</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="metric-card">
+      <div class="metric-card__icon">
+        <i class="bi bi-chat-left-quote"></i>
+      </div>
+      <div class="metric-card__content">
+        <span class="metric-card__label">Avis déposés</span>
+        <h2 class="metric-card__value">{{ reviews().length }}</h2>
+      </div>
+    </div>
+  </div>
+</div>
