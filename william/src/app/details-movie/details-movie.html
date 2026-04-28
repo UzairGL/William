@@ -1,6 +1,7 @@
 @if (movie(); as movie) {
   <main class="details-page">
     <div class="details-layout">
+
       <div class="details-layout__left">
         <section class="details-hero card shadow-sm border-0">
           <div class="details-hero__image">
@@ -33,21 +34,23 @@
           <div class="card-body">
             <h2 class="h4 mb-3">Ajouter un avis</h2>
 
-            <form class="review-form" (submit)="submitReview($event)">
+            <form class="review-form" [formGroup]="reviewForm" (ngSubmit)="submitReview()">
               <div class="row g-2">
+
                 <div class="col-md-4">
                   <label class="form-label">Note</label>
                   <input
                     type="number"
                     class="form-control"
-                    [ngModel]="rate()"
-                    (ngModelChange)="rate.set(+$event)"
-                    name="rate"
+                    formControlName="rate"
+                    [class.is-invalid]="reviewForm.get('rate')?.invalid && reviewForm.get('rate')?.touched"
                     min="0"
                     max="5"
                     step="1"
-                    required
                   />
+                  @if (reviewForm.get('rate')?.invalid && reviewForm.get('rate')?.touched) {
+                    <div class="text-danger small mt-1">Note entre 0 et 5 requise.</div>
+                  }
                 </div>
 
                 <div class="col-12">
@@ -55,16 +58,24 @@
                   <textarea
                     class="form-control"
                     rows="4"
-                    [ngModel]="text()"
-                    (ngModelChange)="text.set($event)"
-                    name="text"
+                    formControlName="text"
                     placeholder="Ton avis sur le film..."
-                    required
+                    [class.is-invalid]="reviewForm.get('text')?.invalid && reviewForm.get('text')?.touched"
                   ></textarea>
+                  @if (reviewForm.get('text')?.invalid && reviewForm.get('text')?.touched) {
+                    <div class="text-danger small mt-1">
+                      Le commentaire doit faire au moins 10 caractères.
+                    </div>
+                  }
                 </div>
 
                 <div class="col-12 d-flex justify-content-end">
-                  <button class="btn btn-primary" type="submit">Publier l'avis</button>
+                  <button
+                    class="btn btn-primary"
+                    type="submit"
+                    [disabled]="reviewForm.invalid">
+                    Publier l'avis
+                  </button>
                 </div>
               </div>
             </form>
