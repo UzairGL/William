@@ -1,0 +1,105 @@
+<form (submit)="update($event)" novalidate>
+  <div class="card shadow-sm border-0 mx-auto" style="max-width: 720px;">
+    <div class="card-header bg-primary text-white py-3">
+      <h5 class="mb-0 fw-semibold">
+        <i class="bi bi-film me-2"></i>Modifier le film
+      </h5>
+    </div>
+
+    <div class="card-body p-4">
+      <div class="row g-4">
+
+        <div class="col-12">
+          <label for="title" class="form-label fw-medium">
+            Titre <span class="text-danger">*</span>
+          </label>
+          <input
+            id="title"
+            type="text"
+            class="form-control"
+            [class.is-invalid]="movieForm.title().touched() && movieForm.title().invalid()"
+            [formField]="movieForm.title"
+          />
+          @if (movieForm.title().touched() && movieForm.title().invalid()) {
+            <div class="invalid-feedback d-block">
+              @for (error of movieForm.title().errors(); track error) {
+                <span class="d-block">{{ error.message }}</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="col-md-6">
+          <label for="director" class="form-label fw-medium">
+            Réalisateur <span class="text-danger">*</span>
+          </label>
+          <input
+            id="director"
+            type="text"
+            class="form-control"
+            [class.is-invalid]="movieForm.director().touched() && movieForm.director().invalid()"
+            [formField]="movieForm.director"
+            placeholder="Ex : John Lasseter"
+          />
+          @if (movieForm.director().touched() && movieForm.director().invalid()) {
+            <div class="invalid-feedback d-block">
+              @for (error of movieForm.director().errors(); track error) {
+                <span class="d-block">{{ error.message }}</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="col-md-6">
+          <label for="releaseDate" class="form-label fw-medium">
+            Date de sortie <span class="text-danger">*</span>
+          </label>
+          <input
+            id="releaseDate"
+            type="date"
+            class="form-control"
+            [class.is-invalid]="movieForm.releaseDate().touched() && movieForm.releaseDate().invalid()"
+            [value]="releaseDateString()"
+            (change)="onReleaseDateChange($any($event.target).value)"
+          />
+          @if (movieForm.releaseDate().touched() && movieForm.releaseDate().invalid()) {
+            <div class="invalid-feedback d-block">
+              @for (error of movieForm.releaseDate().errors(); track error) {
+                <span class="d-block">{{ error.message }}</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="col-12">
+          <label for="synopsis" class="form-label fw-medium">Synopsis</label>
+          <textarea
+            id="synopsis"
+            rows="5"
+            class="form-control"
+            [class.is-invalid]="movieForm.synopsis().touched() && movieForm.synopsis().invalid()"
+            [formField]="movieForm.synopsis"
+            placeholder="Résumé du film..."
+          ></textarea>
+          @if (movieForm.synopsis().touched() && movieForm.synopsis().invalid()) {
+            <div class="invalid-feedback d-block">
+              @for (error of movieForm.synopsis().errors(); track error) {
+                <span class="d-block">{{ error.message }}</span>
+              }
+            </div>
+          }
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card-footer bg-light d-flex justify-content-end gap-2 py-3 px-4">
+      <button type="button" class="btn btn-outline-secondary">
+        Annuler
+      </button>
+      <button type="submit" class="btn btn-primary px-4">
+        <i class="bi bi-check-lg me-1"></i>Mettre à jour
+      </button>
+    </div>
+  </div>
+</form>
