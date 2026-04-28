@@ -1,7 +1,7 @@
 import {Component, inject, OnInit, signal} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MoviesApiService} from '../services/movies-api.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {Movie} from '../models/movie';
 import {form, FormField, required} from '@angular/forms/signals';
 
@@ -9,8 +9,9 @@ import {form, FormField, required} from '@angular/forms/signals';
   selector: 'app-update-movie',
   imports: [
     FormsModule,
-    FormField
-  ],
+    FormField,
+    RouterLink
+],
   templateUrl: './update-movie.html',
   styleUrl: './update-movie.scss',
 })
