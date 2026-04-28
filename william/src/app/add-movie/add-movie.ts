@@ -4,7 +4,7 @@ import {Movie} from '../models/movie';
 import {MoviesApiService} from '../services/movies-api.service';
 import {RouterLink, Router} from '@angular/router';
 import {minLength, pattern, validate, form, FormField, required} from '@angular/forms/signals';
-import {ToastService} from '../services/toast.service';
+import {ToastService, ToastType} from '../services/toast.service';
 
 @Component({
   selector: 'app-add-movie',
@@ -54,7 +54,7 @@ export class AddMovie {
 
     this.moviesApi.addMovie(this.movie()).subscribe(
       async () => {
-        this.service.show("Nouveau Film ajouté", "success");
+        this.service.show("Nouveau Film ajouté", ToastType.ADD);
         await this.router.navigate(['/movies'])
       }
     );

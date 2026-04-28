@@ -3,7 +3,13 @@ import {Injectable, signal} from '@angular/core';
 export interface ToastInfo {
   id: number;
   message: string;
-  type: 'success' | 'danger' | 'info' | 'warning';
+  type: ToastType;
+}
+
+export enum ToastType {
+  ADD = "success",
+  UPDATE = "info",
+  REMOVE = "danger"
 }
 
 @Injectable({
@@ -14,7 +20,7 @@ export class ToastService {
 
   private nextId = 0;
 
-  show(message: string, type: 'success' | 'danger' | 'info' | 'warning' = 'info'): void {
+  show(message: string, type: ToastType): void {
     const id = this.nextId++;
     this.toasts.update(currentToasts => [...currentToasts, {id, message, type}]);
 

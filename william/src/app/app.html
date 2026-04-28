@@ -1,4 +1,6 @@
 <app-navbar [title]="title()"></app-navbar>
 <app-toasters/>
-<router-outlet />
-<app-footer />
+<main class="flex-grow-1">
+  <router-outlet></router-outlet>
+</main>
+<app-footer/>

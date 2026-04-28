@@ -1,17 +1,17 @@
 <form (submit)="addMovie($event)" novalidate>
-  <div class="card shadow-sm border-0 mx-auto" style="max-width: 720px;">
-    <div class="card-header bg-primary text-white py-3">
-      <h5 class="mb-0 fw-semibold">
-        <i class="bi bi-film me-2"></i>Ajouter un film
-      </h5>
+  <div class="form-card">
+
+    <div class="form-card__header">
+      <i class="bi bi-film" aria-hidden="true"></i>
+      <h5>Ajouter un film</h5>
     </div>
 
-    <div class="card-body p-4">
-      <div class="row g-4">
+    <div class="form-card__body">
+      <div class="row">
 
         <div class="col-12">
-          <label for="title" class="form-label fw-medium">
-            Titre <span class="text-danger">*</span>
+          <label for="title" class="form-label">
+            Titre <span class="required-star" aria-hidden="true">*</span>
           </label>
           <input
             id="title"
@@ -21,7 +21,7 @@
             [formField]="movieForm.title"
           />
           @if (movieForm.title().touched() && movieForm.title().invalid()) {
-            <div class="invalid-feedback d-block">
+            <div class="invalid-feedback d-block" role="alert">
               @for (error of movieForm.title().errors(); track error) {
                 <span class="d-block">{{ error.message }}</span>
               }
@@ -29,10 +29,9 @@
           }
         </div>
 
-        <!-- Directeur -->
-        <div class="col-md-6">
-          <label for="director" class="form-label fw-medium">
-            Réalisateur <span class="text-danger">*</span>
+        <div class="col-11">
+          <label for="director" class="form-label">
+            Réalisateur <span class="required-star" aria-hidden="true">*</span>
           </label>
           <input
             id="director"
@@ -43,7 +42,7 @@
             placeholder="Ex : John Lasseter"
           />
           @if (movieForm.director().touched() && movieForm.director().invalid()) {
-            <div class="invalid-feedback d-block">
+            <div class="invalid-feedback d-block" role="alert">
               @for (error of movieForm.director().errors(); track error) {
                 <span class="d-block">{{ error.message }}</span>
               }
@@ -51,10 +50,9 @@
           }
         </div>
 
-        <!-- Date de sortie -->
-        <div class="col-md-6">
-          <label for="releaseDate" class="form-label fw-medium">
-            Date de sortie <span class="text-danger">*</span>
+        <div class="col-11">
+          <label for="releaseDate" class="form-label">
+            Date de sortie <span class="required-star" aria-hidden="true">*</span>
           </label>
           <input
             id="releaseDate"
@@ -64,7 +62,7 @@
             [formField]="movieForm.releaseDate"
           />
           @if (movieForm.releaseDate().touched() && movieForm.releaseDate().invalid()) {
-            <div class="invalid-feedback d-block">
+            <div class="invalid-feedback d-block" role="alert">
               @for (error of movieForm.releaseDate().errors(); track error) {
                 <span class="d-block">{{ error.message }}</span>
               }
@@ -72,9 +70,8 @@
           }
         </div>
 
-        <!-- Synopsis -->
         <div class="col-12">
-          <label for="synopsis" class="form-label fw-medium">Synopsis</label>
+          <label for="synopsis" class="form-label">Synopsis</label>
           <textarea
             id="synopsis"
             rows="5"
@@ -84,7 +81,7 @@
             placeholder="Résumé du film..."
           ></textarea>
           @if (movieForm.synopsis().touched() && movieForm.synopsis().invalid()) {
-            <div class="invalid-feedback d-block">
+            <div class="invalid-feedback d-block" role="alert">
               @for (error of movieForm.synopsis().errors(); track error) {
                 <span class="d-block">{{ error.message }}</span>
               }
@@ -95,11 +92,12 @@
       </div>
     </div>
 
-    <div class="card-footer bg-light d-flex justify-content-end gap-2 py-3 px-4">
-      <button type="button" routerLink="/movies" class="btn btn-outline-secondary">Annuler</button>
-      <button [disabled]="!isValid()" type="submit" class="btn btn-primary px-4">
-        <i class="bi bi-check-lg me-1"></i>Ajouter
+    <div class="form-card__footer">
+      <button type="button" routerLink="/movies" class="btn-cancel">Annuler</button>
+      <button [disabled]="!isValid()" type="submit" class="btn-submit">
+        <i class="bi bi-check-lg" aria-hidden="true"></i>Ajouter
       </button>
     </div>
+
   </div>
 </form>
