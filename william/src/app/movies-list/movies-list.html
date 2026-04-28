@@ -4,7 +4,12 @@
       <h1 class="page-header__title">Liste des films</h1>
       <p class="page-header__subtitle">Administration du catalogue</p>
     </div>
-    <button [routerLink]="['/add-movie']" class="btn-add" type="button" aria-label="Ajouter un nouveau film">
+    <button
+      [routerLink]="['/add-movie']"
+      class="btn-add"
+      type="button"
+      aria-label="Ajouter un nouveau film"
+    >
       <span class="btn-add__icon" aria-hidden="true">＋</span>
       <span>Nouveau film</span>
     </button>
@@ -13,17 +18,19 @@
   <div class="table-shell">
     <div class="table-scroll" role="region" aria-label="Tableau des films" tabindex="0">
       <table class="movies-table">
-        <caption class="visually-hidden">Liste des films avec options de gestion</caption>
+        <caption class="visually-hidden">
+          Liste des films avec options de gestion
+        </caption>
         <thead class="movies-table__head">
-        <tr>
-          <th scope="col" class="col-id">#</th>
-          <th scope="col" class="col-title">Titre</th>
-          <th scope="col" class="col-date">Date</th>
-          <th scope="col" class="col-director">Réalisateur</th>
-          <th scope="col" class="col-rate">Note</th>
-          <th scope="col" class="col-synopsis">Synopsis</th>
-          <th scope="col" class="col-action">Actions</th>
-        </tr>
+          <tr>
+            <th scope="col" class="col-id">#</th>
+            <th scope="col" class="col-title">Titre</th>
+            <th scope="col" class="col-date">Date</th>
+            <th scope="col" class="col-director">Réalisateur</th>
+            <th scope="col" class="col-rate">Note</th>
+            <th scope="col" class="col-synopsis">Synopsis</th>
+            <th scope="col" class="col-action">Actions</th>
+          </tr>
         </thead>
         <tbody class="movies-table__body">
           @for (movie of movies(); track movie.id) {
@@ -35,17 +42,21 @@
                 <span class="movie-title">{{ movie.title }}</span>
               </td>
               <td class="col-date">
-                <span class="date-value">{{ movie.releaseDate | date:'dd/MM/yyyy' }}</span>
+                <span class="date-value">{{ movie.releaseDate | date: 'dd/MM/yyyy' }}</span>
               </td>
               <td class="col-director">{{ movie.director }}</td>
               <td class="col-rate">
                 <span class="rate-badge" [attr.aria-label]="'Note: ' + movie.rate + ' sur 10'">
-                  <span aria-hidden="true">★</span>{{ movie.rate }}
+                  <span aria-hidden="true">★</span>{{ formatRate(movie.rate) }}
                 </span>
               </td>
               <td class="col-synopsis" [title]="movie.synopsis">{{ movie.synopsis }}</td>
               <td class="col-action">
-                <div class="action-group" role="group" [attr.aria-label]="'Actions pour ' + movie.title">
+                <div
+                  class="action-group"
+                  role="group"
+                  [attr.aria-label]="'Actions pour ' + movie.title"
+                >
                   <button
                     type="button"
                     class="action-btn action-btn--edit"

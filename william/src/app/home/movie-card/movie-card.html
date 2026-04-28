@@ -1,4 +1,9 @@
-<article class="movie-card" [class.has-image]="movie.image" role="article" [attr.aria-label]="movie.title">
+<article
+  class="movie-card"
+  [class.has-image]="movie.image"
+  role="article"
+  [attr.aria-label]="movie.title"
+>
   <div (click)="onMovieClick()" class="movie-card__poster">
     @if (movie.image) {
       <img
@@ -14,7 +19,7 @@
     <div class="movie-card__overlay" aria-hidden="true"></div>
     <div class="movie-card__rating" [attr.aria-label]="'Note: ' + movie.rate + ' sur 10'">
       <span class="movie-card__rating-star">★</span>
-      <span class="movie-card__rating-value">{{ movie.rate }}</span>
+      <span class="movie-card__rating-value">{{ formatRate(movie.rate) }}</span>
     </div>
   </div>
 

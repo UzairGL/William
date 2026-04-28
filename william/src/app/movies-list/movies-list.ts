@@ -36,4 +36,12 @@ export class MoviesList implements OnInit {
   ngOnInit(): void {
     this.moviesApi.getMovies().subscribe()
   }
+
+  formatRate(rate: number | undefined | null): string {
+    if (rate === null || rate === undefined) {
+      return 'N/A';
+    }
+
+    return rate.toFixed(2);
+  }
 }

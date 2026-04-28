@@ -20,7 +20,7 @@
                 <p class="text-muted mb-0">Sorti le {{ movie.releaseDate | date: 'dd/MM/yyyy' }}</p>
               </div>
 
-              <div class="details-rate">Note moyenne: {{ movie.rate ?? 'N/A' }}</div>
+              <div class="details-rate">Note moyenne: {{ formatRate(movie.rate) }}</div>
             </div>
 
             <p class="details-synopsis mt-4">{{ movie.synopsis }}</p>
@@ -95,7 +95,7 @@
                   <article class="review-item">
                     <div class="review-item__top">
                       <strong>{{ review.user.firstName }} {{ review.user.lastName }} </strong>
-                      <span class="review-item__badge">{{ review.rate }}/5</span>
+                      <span class="review-item__badge">{{ formatRate(review.rate) }}/5</span>
                     </div>
                     <p class="review-item__text">{{ review.text }}</p>
                   </article>

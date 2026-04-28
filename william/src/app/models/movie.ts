@@ -7,4 +7,3 @@ export interface Movie {
   synopsis: string;
   image?: string;
 }
-

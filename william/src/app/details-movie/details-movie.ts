@@ -45,6 +45,14 @@ export class DetailsMovie implements OnInit {
     this.reviewApi.getReviewsByMovie(this.movieId).subscribe(reviews => this.reviews.set(reviews));
   }
 
+  formatRate(rate: number | undefined | null): string {
+    if (rate === null || rate === undefined) {
+      return 'N/A';
+    }
+
+    return rate.toFixed(2);
+  }
+
   submitReview(event: SubmitEvent): void {
     event.preventDefault();
 

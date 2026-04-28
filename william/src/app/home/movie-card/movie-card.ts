@@ -15,5 +15,14 @@ export class MovieCard {
       this.windows.focus();
     }
   }
+
+  formatRate(rate: number | undefined | null): string {
+    if (rate === null || rate === undefined) {
+      return 'N/A';
+    }
+
+    return rate.toFixed(2);
+  }
+
   @Input({ required: true }) movie!: any;
 }
