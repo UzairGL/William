@@ -1,7 +1,7 @@
 import {Component, inject, OnInit, signal} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MoviesApiService} from '../services/movies-api.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {Movie} from '../models/movie';
 import {form, FormField, required} from '@angular/forms/signals';
 
@@ -11,11 +11,11 @@ import {form, FormField, required} from '@angular/forms/signals';
     FormsModule,
     FormField,
     RouterLink
-],
+  ],
   templateUrl: './update-movie.html',
   styleUrl: './update-movie.scss',
 })
-export class UpdateMovie implements OnInit{
+export class UpdateMovie implements OnInit {
   private moviesApi = inject(MoviesApiService)
   private router = inject(Router)
 
@@ -52,7 +52,7 @@ export class UpdateMovie implements OnInit{
 
   onReleaseDateChange(value: string) {
     this.releaseDateString.set(value);
-    this.movie.update(m => ({ ...m, releaseDate: new Date(value) }));
+    this.movie.update(m => ({...m, releaseDate: new Date(value)}));
   }
 
   update(event: SubmitEvent) {
@@ -61,5 +61,9 @@ export class UpdateMovie implements OnInit{
     this.moviesApi.updateMovie(this.movie()).subscribe(
       () => this.router.navigate(['/movies'])
     );
+  }
+
+  isValid() {
+    return this.movieForm.title().valid() && this.movieForm.director().valid() && this.movieForm.releaseDate().valid() && this.movieForm.synopsis().valid()
   }
 }

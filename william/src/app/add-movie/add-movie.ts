@@ -15,7 +15,7 @@ import {form, FormField, required} from '@angular/forms/signals';
   styleUrl: './add-movie.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddMovie{
+export class AddMovie {
   private moviesApi = inject(MoviesApiService)
   private router = inject(Router)
 
@@ -36,11 +36,15 @@ export class AddMovie{
     required(res.synopsis, {message: 'Synopsis is required'});
   })
 
-  addMovie(event: SubmitEvent){
+  addMovie(event: SubmitEvent) {
     event.preventDefault()
 
     this.moviesApi.addMovie(this.movie()).subscribe(
       () => this.router.navigate(['/movies'])
     );
+  }
+
+  isValid() {
+    return this.movieForm.title().valid() && this.movieForm.director().valid() && this.movieForm.releaseDate().valid() && this.movieForm.synopsis().valid()
   }
 }
