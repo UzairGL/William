@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {MoviesApiService} from '../services/movies-api.service';
 import {ReviewApi} from '../services/review-api.service';
@@ -7,6 +7,7 @@ import {Review} from '../models/review';
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import { UserService } from '../services/user-service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-details-movie',
@@ -69,18 +70,27 @@ export class DetailsMovie implements OnInit {
 
     const movie = this.movie();
     const user = this.userService.getUserfromLS();
-
     if (!movie || !user) return;
 
     const formValues = this.reviewForm.value;
+    const userId = user?.user?.id ?? 0;
 
     const review: Review = {
       movie,
-      user: { ...user, firstName: '', lastName: '', age: 0, email: '', points: 0 },
+      user: { id: userId, firstName: '', lastName: '', age: 0, email: '', points: 0 },
       rate: formValues.rate!,
       text: formValues.text!,
       reviewDate: new Date(),
     };
+
+    const newUser = {
+      ...user.user,
+      points: (user.user?.points ?? 0) + 1,
+    }
+
+    this.userService.postUser(newUser as User).subscribe();
+
+    localStorage.setItem('user', JSON.stringify(newUser));
 
     this.reviewApi.addReview(review).subscribe(() => {
       this.reviewForm.reset({ rate: 5, text: '' });

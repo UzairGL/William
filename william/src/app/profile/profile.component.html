@@ -1,0 +1,30 @@
+<div class="profile-page">
+  <div class="profile-card">
+    <h1 class="profile-card__title">Mon Profil</h1>
+
+    <h2 class="profile-card__section">Mes infos</h2>
+
+    <div class="profile-card__info">
+      <div class="profile-card__row">
+        <span class="profile-card__label">Nom</span>
+        <span class="profile-card__value">{{ userSignal().lastName }}</span>
+      </div>
+      <div class="profile-card__row">
+        <span class="profile-card__label">Prénom</span>
+        <span class="profile-card__value">{{ userSignal().firstName }}</span>
+      </div>
+      <div class="profile-card__row">
+        <span class="profile-card__label">Âge</span>
+        <span class="profile-card__value">{{ userSignal().age }} ans</span>
+      </div>
+      <div class="profile-card__row">
+        <span class="profile-card__label">Email</span>
+        <span class="profile-card__value">{{ userSignal().email }}</span>
+      </div>
+      <div class="profile-card__row profile-card__row--points">
+        <span class="profile-card__label">Points fidélité</span>
+        <span class="profile-card__value profile-card__value--points">{{ userSignal().points }} pts</span>
+      </div>
+    </div>
+  </div>
+</div>

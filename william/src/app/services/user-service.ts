@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
+import { DataUser } from '../models/dataUser';
 
 @Injectable({
   providedIn: 'root',
@@ -22,17 +23,16 @@ export class UserService {
     return this.http.post<User>(this.url, user);
   }
 
-  getUserfromLS(): User | undefined {
+  getUserfromLS(): DataUser {
     const user = localStorage.getItem('user');
     if (!user) {
-      return undefined;
+      return { user: undefined, error: 'error' };
     } else {
       const userJson = JSON.parse(user);
       if (!userJson) {
-        return undefined;
-      }
-      else {
-        return userJson;
+        return { user: undefined, error: 'error' };
+      } else {
+        return { user: userJson, error: '' };
       }
     }
   }

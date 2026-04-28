@@ -10,6 +10,7 @@ import {AdminPanel} from './admin-panel/admin-panel';
 import {AdminUsers} from './admin-panel/admin-users/admin-users';
 import {AdminReviews} from './admin-panel/admin-reviews/admin-reviews';
 import {AdminStats} from './admin-panel/admin-stats/admin-stats';
+import { ProfileComponent } from './profile/profile.component';
 
 export const routes: Routes = [
   { path: '', component: Home},
@@ -18,6 +19,8 @@ export const routes: Routes = [
   { path: 'movies', component: MoviesList},
   { path: 'add-movie', component: AddMovie},
   { path: 'update-movie/:id', component: UpdateMovie},
+  { path: 'movies/:id', component: DetailsMovie},
+  { path: 'profile', component: ProfileComponent },
   { path: 'movies/:id', component: DetailsMovie},
   {
     path: 'admin',

@@ -1,0 +1,88 @@
+.profile-page {
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 20% 0%, rgba(184, 146, 42, 0.07) 0%, transparent 55%),
+  #f4f1ea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+
+  &__title {
+    margin: 0 0 1.75rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #1a1a2e;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 2px;
+      background: linear-gradient(90deg, #b8922a, transparent);
+      margin-top: 0.45rem;
+      border-radius: 2px;
+    }
+  }
+
+  &__section {
+    margin: 0 0 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(184, 146, 42, 0.8);
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &--points {
+      background: rgba(184, 146, 42, 0.04);
+    }
+  }
+
+  &__label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1a1a2e;
+
+    &--points {
+      color: #b8922a;
+      font-weight: 700;
+    }
+  }
+}
