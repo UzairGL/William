@@ -1,0 +1,112 @@
+@if (movie(); as movie) {
+  <main class="details-page">
+    <div class="details-layout">
+      <div class="details-layout__left">
+        <section class="details-hero card shadow-sm border-0">
+          <div class="details-hero__image">
+            @if (movie.image) {
+              <img
+                [src]="'http://localhost:8080/movies/' + movie.id + '/image'"
+                [alt]="movie.title"
+              />
+            }
+          </div>
+
+          <div class="details-hero__content card-body">
+            <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
+              <div>
+                <h1 class="details-title mb-2">{{ movie.title }}</h1>
+                <p class="text-muted mb-1">Réalisé par {{ movie.director }}</p>
+                <p class="text-muted mb-0">Sorti le {{ movie.releaseDate | date: 'dd/MM/yyyy' }}</p>
+              </div>
+
+              <div class="details-rate">Note moyenne: {{ movie.rate ?? 'N/A' }}</div>
+            </div>
+
+            <p class="details-synopsis mt-4">{{ movie.synopsis }}</p>
+          </div>
+        </section>
+      </div>
+
+      <aside class="details-layout__right">
+        <section class="card shadow-sm border-0 mb-3">
+          <div class="card-body">
+            <h2 class="h4 mb-3">Ajouter un avis</h2>
+
+            <form class="review-form" (submit)="submitReview($event)">
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label class="form-label">User ID</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    [ngModel]="userId()"
+                    (ngModelChange)="userId.set($event ? +$event : null)"
+                    name="userId"
+                    min="1"
+                    placeholder="1"
+                    required
+                  />
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">Note</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    [ngModel]="rate()"
+                    (ngModelChange)="rate.set(+$event)"
+                    name="rate"
+                    min="0"
+                    max="5"
+                    step="1"
+                    required
+                  />
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label">Commentaire</label>
+                  <textarea
+                    class="form-control"
+                    rows="4"
+                    [ngModel]="text()"
+                    (ngModelChange)="text.set($event)"
+                    name="text"
+                    placeholder="Ton avis sur le film..."
+                    required
+                  ></textarea>
+                </div>
+
+                <div class="col-12 d-flex justify-content-end">
+                  <button class="btn btn-primary" type="submit">Publier l'avis</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="card shadow-sm border-0 details-reviews">
+          <div class="card-body margin">
+            <h2 class="h4 mb-3">Derniers Avis</h2>
+
+            @if (reviews().length > 0) {
+              <div class="reviews-list">
+                @for (review of reviews(); track review.id) {
+                  <article class="review-item">
+                    <div class="review-item__top">
+                      <strong>{{ review.user.firstName }} {{ review.user.lastName }} </strong>
+                      <span class="review-item__badge">{{ review.rate }}/5</span>
+                    </div>
+                    <p class="review-item__text">{{ review.text }}</p>
+                  </article>
+                }
+              </div>
+            } @else {
+              <p class="text-muted mb-0">Aucun avis pour ce film pour le moment.</p>
+            }
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+}

@@ -1,5 +1,5 @@
 <article class="movie-card" [class.has-image]="movie.image" role="article" [attr.aria-label]="movie.title">
-  <div class="movie-card__poster">
+  <div (click)="onMovieClick()" class="movie-card__poster">
     @if (movie.image) {
       <img
         [src]="'http://localhost:8080/movies/' + movie.id + '/image'"

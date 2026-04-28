@@ -1,15 +1,14 @@
 import {inject, Injectable, signal} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, tap} from 'rxjs';
 import {Review} from '../models/review';
-import {toSignal} from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReviewApi {
   private readonly httpClient = inject(HttpClient)
-  private readonly url = "http://localhost:8080/movies"
+  private readonly url = "http://localhost:8080/reviews"
 
   reviews = signal<Review[]>([])
 
@@ -17,7 +16,6 @@ export class ReviewApi {
   getReviews(): Observable<Review[]> {
     return this.httpClient.get<Review[]>(this.url).pipe(tap((r: Review[]) => this.reviews.set(r)))
   }
-
 
   addReview(review: Review): Observable<Review> {
     return this.httpClient.post<Review>(this.url, review).pipe(tap((r: Review) => this.reviews.set([...this.reviews(), r])))
@@ -52,7 +50,11 @@ export class ReviewApi {
    * Check if a review of a user exist for a movie
    */
   getCheckAvis(movieId: number, userId: number): Observable<boolean> {
-    return this.httpClient.post<boolean>(`${this.url}/checkAvis`, { movieId, userId })
+    const params = new HttpParams()
+      .set('filmId', movieId.toString())
+      .set('userId', userId.toString());
+
+    return this.httpClient.get<boolean>(`${this.url}/checkAvis`, { params })
   }
 
   // -- PATH -- /reviews/byYear/{year}
@@ -63,5 +65,10 @@ export class ReviewApi {
   // -- PATH -- /reviews/byYear/{year}/quantity/
   getReviewsByYearQuantity(year: number): Observable<number> {
     return this.httpClient.get<number>(`${this.url}/byYear/${year}/quantity/`)
+  }
+
+  // -- PATH -- /movies/{movieId}/reviews
+  getReviewsByMovie(movieId: number): Observable<Review[]> {
+    return this.httpClient.get<Review[]>(`http://localhost:8080/movies/${movieId}/reviews`)
   }
 }
