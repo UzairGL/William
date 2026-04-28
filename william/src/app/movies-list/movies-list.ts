@@ -4,7 +4,7 @@ import {DatePipe} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {Movie} from '../models/movie';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {ToastService} from '../services/toast.service';
+import {ToastService, ToastType} from '../services/toast.service';
 
 @Component({
   selector: 'app-movies-list',
@@ -29,7 +29,7 @@ export class MoviesList implements OnInit {
 
     this.moviesApi.deleteMovie(id).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       this.movies.set(this.movies().filter((m: Movie) => m.id !== id));
-      this.service.show('Le film a été supprimé.', 'danger');
+      this.service.show('Le film a été supprimé.', ToastType.REMOVE);
     });
   }
 

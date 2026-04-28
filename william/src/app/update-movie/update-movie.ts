@@ -3,7 +3,8 @@ import {FormsModule} from '@angular/forms';
 import {MoviesApiService} from '../services/movies-api.service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {Movie} from '../models/movie';
-import { form, FormField, minLength, pattern, required, validate } from '@angular/forms/signals';
+import {form, FormField, minLength, pattern, required, validate} from '@angular/forms/signals';
+import {ToastService, ToastType} from '../services/toast.service';
 
 @Component({
   selector: 'app-update-movie',
@@ -18,6 +19,7 @@ import { form, FormField, minLength, pattern, required, validate } from '@angula
 export class UpdateMovie implements OnInit {
   private moviesApi = inject(MoviesApiService)
   private router = inject(Router)
+  private service = inject(ToastService)
 
   private route = inject(ActivatedRoute)
 
@@ -36,14 +38,14 @@ export class UpdateMovie implements OnInit {
   releaseDateString = signal('');
 
   movieForm = form(this.movie, (res) => {
-    required(res.title, { message: 'Title is required' });
-    pattern(res.title, /^[A-ZÀ-Ÿ0-9\s\W]+$/, { message: 'Title must be full caps' });
+    required(res.title, {message: 'Title is required'});
+    pattern(res.title, /^[A-ZÀ-Ÿ0-9\s\W]+$/, {message: 'Title must be full caps'});
     required(res.director, {message: 'Director is required'});
     pattern(res.director, /^[A-ZÀ-ÿ][a-zà-ÿ]+(?:\s[A-ZÀ-ÿ][a-zà-ÿ]+)+$/, {
       message: "Director should follow the pattern 'Firstname Lastname'",
     });
     required(res.releaseDate, {message: 'Release date is required'});
-    validate(res.releaseDate, ({ value }) => {
+    validate(res.releaseDate, ({value}) => {
       const releaseYear = value();
       if (releaseYear > new Date()) {
         return {
@@ -54,7 +56,7 @@ export class UpdateMovie implements OnInit {
       return null;
     });
     required(res.synopsis, {message: 'Synopsis is required'});
-    minLength(res.synopsis, 30, { message: 'Synopsis should be at least 30 characters long' });
+    minLength(res.synopsis, 30, {message: 'Synopsis should be at least 30 characters long'});
   })
 
   ngOnInit(): void {
@@ -74,7 +76,10 @@ export class UpdateMovie implements OnInit {
     event.preventDefault()
 
     this.moviesApi.updateMovie(this.movie()).subscribe(
-      () => this.router.navigate(['/movies'])
+      async () => {
+        await this.router.navigate(['/movies'])
+        this.service.show('Le film a été supprimé.', ToastType.UPDATE);
+      }
     );
   }
 
