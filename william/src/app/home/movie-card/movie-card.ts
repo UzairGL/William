@@ -1,4 +1,5 @@
-import {Component, Input} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-movie-card',
@@ -7,13 +8,10 @@ import {Component, Input} from '@angular/core';
   styleUrl: './movie-card.scss',
 })
 export class MovieCard {
-  windows: Window | null = null;
+  router = inject(Router)
 
-  onMovieClick() {
-    this.windows = window.open(`/movies/${this.movie.id}`, '_blank');
-    if (this.windows) {
-      this.windows.focus();
-    }
+  async onMovieClick() {
+    await this.router.navigate([`/movies/${this.movie.id}`]);
   }
 
   formatRate(rate: number | undefined | null): string {
@@ -24,5 +22,5 @@ export class MovieCard {
     return rate.toFixed(2);
   }
 
-  @Input({ required: true }) movie!: any;
+  @Input({required: true}) movie!: any;
 }
