@@ -3,7 +3,7 @@ import {FormsModule} from '@angular/forms';
 import {MoviesApiService} from '../services/movies-api.service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {Movie} from '../models/movie';
-import {form, FormField, required} from '@angular/forms/signals';
+import { form, FormField, minLength, pattern, required, validate } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-update-movie',
@@ -36,10 +36,25 @@ export class UpdateMovie implements OnInit {
   releaseDateString = signal('');
 
   movieForm = form(this.movie, (res) => {
-    required(res.title, {message: 'Title is required'});
+    required(res.title, { message: 'Title is required' });
+    pattern(res.title, /^[A-ZÀ-Ÿ0-9\s\W]+$/, { message: 'Title must be full caps' });
     required(res.director, {message: 'Director is required'});
+    pattern(res.director, /^[A-ZÀ-ÿ][a-zà-ÿ]+(?:\s[A-ZÀ-ÿ][a-zà-ÿ]+)+$/, {
+      message: "Director should follow the pattern 'Firstname Lastname'",
+    });
     required(res.releaseDate, {message: 'Release date is required'});
+    validate(res.releaseDate, ({ value }) => {
+      const releaseYear = value();
+      if (releaseYear > new Date()) {
+        return {
+          kind: 'error',
+          message: 'Release date must be in the past',
+        };
+      }
+      return null;
+    });
     required(res.synopsis, {message: 'Synopsis is required'});
+    minLength(res.synopsis, 30, { message: 'Synopsis should be at least 30 characters long' });
   })
 
   ngOnInit(): void {

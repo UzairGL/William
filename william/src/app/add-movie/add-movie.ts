@@ -1,23 +1,20 @@
-import {ChangeDetectionStrategy, Component, inject, OnChanges, OnInit, signal} from '@angular/core';
-import {FormsModule, Validators} from '@angular/forms';
+import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import {Movie} from '../models/movie';
 import {MoviesApiService} from '../services/movies-api.service';
-import {Router} from '@angular/router';
-import {form, FormField, required} from '@angular/forms/signals';
+import {Router, RouterLink} from '@angular/router';
+import { form, FormField, minLength, pattern, required, validate } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-add-movie',
-  imports: [
-    FormsModule,
-    FormField
-  ],
+  imports: [FormsModule, FormField, RouterLink],
   templateUrl: './add-movie.html',
   styleUrl: './add-movie.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddMovie {
-  private moviesApi = inject(MoviesApiService)
-  private router = inject(Router)
+  private moviesApi = inject(MoviesApiService);
+  private router = inject(Router);
 
   movie = signal<Movie>({
     title: '',
@@ -26,25 +23,42 @@ export class AddMovie {
     synopsis: '',
     id: undefined,
     rate: undefined,
-    image: undefined
-  })
+    image: undefined,
+  });
 
   movieForm = form(this.movie, (res) => {
-    required(res.title, {message: 'Title is required'});
-    required(res.director, {message: 'Director is required'});
-    required(res.releaseDate, {message: 'Release date is required'});
-    required(res.synopsis, {message: 'Synopsis is required'});
-  })
+    required(res.title, { message: 'Title is required' });
+    pattern(res.title, /^[A-ZÀ-Ÿ0-9\s\W]+$/, { message: 'Title must be full caps' });
+    required(res.director, { message: 'Director is required' });
+    pattern(res.director, /^[A-ZÀ-ÿ][a-zà-ÿ]+(?:\s[A-ZÀ-ÿ][a-zà-ÿ]+)+$/, { message: 'Director should follow the pattern \'Firstname Lastname\''})
+    required(res.releaseDate, { message: 'Release date is required' });
+    validate(res.releaseDate, ({value}) => {
+      const releaseYear = value();
+      if (releaseYear > new Date()) {
+        return {
+          kind: 'error',
+          message: 'Release date must be in the past',
+        };
+      }
+      return null;
+    });
+
+    required(res.synopsis, { message: 'Synopsis is required' });
+    minLength(res.synopsis, 30, { message: 'Synopsis should be at least 30 characters long'});
+  });
 
   addMovie(event: SubmitEvent) {
-    event.preventDefault()
+    event.preventDefault();
 
-    this.moviesApi.addMovie(this.movie()).subscribe(
-      () => this.router.navigate(['/movies'])
-    );
+    this.moviesApi.addMovie(this.movie()).subscribe(() => this.router.navigate(['/movies']));
   }
 
   isValid() {
-    return this.movieForm.title().valid() && this.movieForm.director().valid() && this.movieForm.releaseDate().valid() && this.movieForm.synopsis().valid()
+    return (
+      this.movieForm.title().valid() &&
+      this.movieForm.director().valid() &&
+      this.movieForm.releaseDate().valid() &&
+      this.movieForm.synopsis().valid()
+    );
   }
 }
